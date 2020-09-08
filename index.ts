@@ -1,7 +1,6 @@
-import {app} from './src/app'
-import {AddressInfo} from 'net'
+import {application} from './src/app'
 
-const server = app.listen(3000, '0.0.0.0', () => {
-    const {port, address} = server.address() as AddressInfo;
-    console.log('Server listening on:','http://' + address + ':'+port);
-});
+const PersonaRouter = require('./src/controllers/persona').PersonaRouter;
+
+application.add({ path: '/', router: PersonaRouter });
+application.start();

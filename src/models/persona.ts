@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { IPersona } from '../interfaces/persona';
 
-const PersonaSchema: Schema = new Schema({
+const schema = new Schema({
   nombre: { type: String, required: true },
   apellido: { type: String, required: true },
   documento: { type: Number, required: true },
@@ -9,5 +8,5 @@ const PersonaSchema: Schema = new Schema({
   activo: {type: Boolean, required: true}
 });
 
-const Persona = mongoose.model<IPersona>('persona', PersonaSchema);
-export default Persona;
+export const PersonaModel = mongoose.model('persona', schema);
+export default PersonaModel;

@@ -1,22 +1,18 @@
-import express, { Application } from "express";
-import bodyParser from "body-parser";
+import { Router } from 'express';
 import connect from "./connect";
-import *  as PersonaController from './controllers/persona';
-
-export const app: Application = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+import { ApiBootstrap } from '@andes/api-tool/build/bootstrap';
+import { apiOptionsMiddleware, Request, Response } from '@andes/api-tool';
 
 const db: string = 'mongodb://localhost:27017/prueba'
 connect(db);
 
-app.get('/personas', PersonaController.todesPersonas);
+const info = {
+    name: 'ResourceBase',
+    version: '1.0.0'
+};
+const port = 3000;
+const host = 'localhost';
+const key = ''
 
-app.get('/personas/:id', PersonaController.verPersona);
-
-app.post("/personas", PersonaController.addPersona);
-
-app.patch("/personas/:id", PersonaController.updatePersona);
-
-app.delete("/personas/:id", PersonaController.deletePersona);
+export const application = new ApiBootstrap(info, { port, host, key });
+application.add(apiOptionsMiddleware as Router);
