@@ -2,20 +2,35 @@ import { Request, Response } from "express";
 import Persona from '../models/persona';
 
 export const todesPersonas = async (req: Request, res: Response) => {
+    const consulta = Persona.find({}); // Se arma la query
     try {
-        const personas = await Persona.find();
-        res.send(personas);
+        if (req.query.nombre) {
+          consulta.where('nombre').equals(RegExp('^.*' + req.query.nombre + '.*$', 'i'))
+        }
+        if (req.query.apellido) {
+          consulta.where('apellido').equals(RegExp('^.*' + req.query.apellido + '.*$', 'i'))
+        }
+        if (req.query.email) {
+          consulta.where('email').equals(RegExp('^.*' + req.query.email + '.*$', 'i'))
+        }
+        if (req.query.documento) {
+            consulta.where('documento').equals(req.query.documento);
+        }
+        if (req.query.activo) {
+            consulta.where('activo').equals(true);
+        }
+        const persona = await consulta.exec();
+        res.send(persona);
     } catch (err) {
         res.send(err);
     }
 };
 
 export const verPersona = async (req: Request, res: Response) => {
-  const persona = await Persona.findById(req.params.id)
-    try {
+  try {
+        const persona = await Persona.findById(req.params.id)
         res.send(persona)
-    } catch (err) {
-        console.log('palo:', err );
+  } catch (err) {
         res.send(err)
     }
 };

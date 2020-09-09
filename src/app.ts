@@ -11,12 +11,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db: string = 'mongodb://localhost:27017/prueba'
 connect(db);
 
-app.get('/personas', PersonaController.todesPersonas);
-
+// endpoints
 app.get('/personas/:id', PersonaController.verPersona);
-
+app.get('/personas', PersonaController.todesPersonas);
 app.post("/personas", PersonaController.addPersona);
-
 app.patch("/personas/:id", PersonaController.updatePersona);
-
 app.delete("/personas/:id", PersonaController.deletePersona);
