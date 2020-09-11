@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import { Document } from "mongoose";
 
 export interface IPersona extends Document {
     nombre: string;
