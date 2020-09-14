@@ -3,7 +3,7 @@ import { ResourceBase, MongoQuery } from '@andes/core';
 
 class PersonaResource extends ResourceBase {
     Model = PersonaModel;
-    resourceName = 'persona';
+    resourceName = 'personas';
     searchFileds = {
         nombre: (text: string) => new RegExp(`^${text}`),
         apellido: (text: string) => new RegExp(`^${text}`),

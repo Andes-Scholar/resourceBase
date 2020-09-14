@@ -1,18 +1,11 @@
 import mongoose from "mongoose";
 
-export default (db: string) => {
-  const connect = () => {
-    mongoose
-      .connect(db, { useNewUrlParser: true })
-      .then(() => {
-        return console.log(`Conexión a la base de datos OK`);
-      })
-      .catch(error => {
-        console.log("Error conectando a la base de datos: ", error);
-        return process.exit(1);
-      });
-  };
-  connect();
-
-  mongoose.connection.on("disconnected", connect);
-};
+export default async (db: string) => {
+  try {
+      await mongoose.connect(db)
+      console.info(`Connected to database on Worker process: ${process.pid}`)
+  } catch (error) {
+      console.error(`Connection error: ${error.stack} on Worker process: ${process.pid}`)
+      process.exit(1)
+  }
+}

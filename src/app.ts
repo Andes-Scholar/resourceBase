@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import connect from "./connect";
 import { ApiBootstrap } from '@andes/api-tool/build/bootstrap';
-import { apiOptionsMiddleware, Request, Response } from '@andes/api-tool';
+import { apiOptionsMiddleware } from '@andes/api-tool';
 
 const db: string = 'mongodb://localhost:27017/prueba'
 connect(db);
