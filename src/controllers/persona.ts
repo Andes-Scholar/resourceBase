@@ -5,12 +5,11 @@ class PersonaResource extends ResourceBase {
     Model = PersonaModel;
     resourceName = 'personas';
     searchFileds = {
-        nombre: (text: string) => new RegExp(`^${text}`),
-        apellido: (text: string) => new RegExp(`^${text}`),
+        nombre: (value: string) => MongoQuery.partialString(`^${value}`),
+        apellido: (value: string) => MongoQuery.partialString(`^${value}`),
         activo: MongoQuery.equalMatch,
-        email:  MongoQuery.partialString,
-        documento: MongoQuery.partialString,
-        search: ['nombre', 'apellido', 'documento']
+        email:  (value: string) => MongoQuery.partialString(`^${value}`),
+        documento: MongoQuery.equalMatch
     };
 }
 
